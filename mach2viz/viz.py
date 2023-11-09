@@ -12,8 +12,6 @@ from sys import argv
 from flask import Flask, jsonify  # Import flask
 
 
-JSON_FILE = argv[1]
-
 class Viz:
     ''' Visualizer class. Stores json data and has methods to open the visualizer GUI'''
 
@@ -24,7 +22,7 @@ class Viz:
         self.app = Flask(__name__, static_url_path='/mach2-viz/')
 
         # Open the JSON file
-        with open(JSON_FILE, 'r', encoding='utf-8') as file:
+        with open(self.filename, 'r', encoding='utf-8') as file:
             # Load the JSON data
             json_data = json.load(file)
             self.labeling = json_data['solutions'][0]['name']
@@ -52,5 +50,7 @@ class Viz:
 
 
 if __name__ == '__main__':  # If the script that was run is this script (we have not been imported)
+    JSON_FILE = argv[1]
+
     app = Viz(JSON_FILE)
     app.run()  # Start the server
