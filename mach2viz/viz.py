@@ -71,7 +71,8 @@ class Viz:
     def run(self):
         ''' Open visualizer '''
         # Open the URL in the default web browser
-        url = f'http://127.0.0.1:{self.port}/#/viz?labeling={self.labeling}&labeling2={self.labeling}'
+        url = \
+            f'http://127.0.0.1:{self.port}/#/viz?labeling={self.labeling}&labeling2={self.labeling}'
         threading.Timer(1, lambda: webbrowser.open(url)).start()
 
         self.app.run(port=self.port)
@@ -117,7 +118,10 @@ class Viz:
         pattern = r"fetch\(['\"]http://127.0.0.1:(\d+)/json['\"]\)"
 
         # Use re.sub to replace the matched port number with the new port number
-        replaced_content = re.sub(pattern, f"fetch('http://127.0.0.1:{new_port_number}/json')", file_content)
+        replaced_content = re.sub(
+            pattern,
+            f"fetch('http://127.0.0.1:{new_port_number}/json')",
+            file_content)
 
         # Write the modified content back to the file
         with open(file_path, 'w', encoding='utf-8') as file:
