@@ -18,7 +18,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="mach2-viz",
-    version="0.0.1",
+    version="0.0.2",
     author="vikramr2",
     description="Visualizer for the MACH2 Metastasis Inference Algorithm",
     long_description=long_description,
