@@ -15,17 +15,31 @@ from flask import Flask, jsonify  # Import flask
 class Viz:
     ''' Visualizer class. Stores json data and has methods to open the visualizer GUI'''
 
-    def __init__(self, filename):
-        self.filename = filename
-
+    def __init__(self, filename=None, solution=None):
+        # Argument error handling
+        if (not filename and not solution):
+            raise TypeError('The visualizer requires either a filename or a solution object')
+        
+        if (filename and solution):
+            raise TypeError('The visualizer requires either a filename or a solution object, not both.')
+        
         # Setup the flask app by creating an instance of Flask
         self.app = Flask(__name__, static_url_path='/mach2-viz/')
 
-        # Open the JSON file
-        with open(self.filename, 'r', encoding='utf-8') as file:
-            # Load the JSON data
-            json_data = json.load(file)
-            self.labeling = json_data['solutions'][0]['name']
+        # If a filename to a json is given, parse it and load data
+        if filename:
+            self.filename = filename
+
+            # Open the JSON file
+            with open(self.filename, 'r', encoding='utf-8') as file:
+                # Load the JSON data
+                json_data = json.load(file)
+                self.labeling = json_data['solutions'][0]['name']
+
+        # If data is given directly, no need to parse
+        if solution:
+            self.solution = solution
+            self.labeling = self.solution['solutions'][0]['name']
 
         @self.app.route('/')
         def home():
