@@ -38,6 +38,8 @@ class Viz:
 
         # If data is given directly, no need to parse
         if solution:
+            json_data = solution
+
             self.solution = solution
             self.labeling = self.solution['solutions'][0]['name']
 
