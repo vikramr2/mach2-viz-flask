@@ -90,7 +90,10 @@ class Viz:
 
     def _change_port_in_client(self):
         ''' Goes through the client code and changes hardcoded port number '''
-        directory = 'static/static/js'
+        # Get the directory of the current script or module
+        current_directory = os.path.dirname(os.path.abspath(__file__))
+
+        directory = f'{current_directory}/static/static/js'
         pattern = 'main*chunk.js*'
 
         result = self._find_files(directory, pattern)
